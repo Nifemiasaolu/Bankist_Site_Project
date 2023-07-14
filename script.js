@@ -144,7 +144,7 @@ buttonScrollTo.addEventListener('click', function (e) {
   //   document.documentElement.clientWidth
   // );
 
-  //============== Scrolling ===============
+  //============== Scrolling ==============
 
   //==== Older Method =====
   // window.scrollTo(
