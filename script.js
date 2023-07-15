@@ -86,7 +86,7 @@ message.style.height =
 // Working with Custom CSS
 // document.documentElement.style.setProperty('--color-primary', 'orangered'); //Used to easily change the style of a page.
 
-//====== Attributes ======
+//====== Attributes =====
 const logo = document.querySelector('.nav__logo');
 // console.log(logo.alt);
 // console.log(logo.src);
