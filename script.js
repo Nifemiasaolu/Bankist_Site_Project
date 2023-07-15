@@ -31,7 +31,6 @@ document.addEventListener('keydown', function (e) {
 });
 
 /////////////////////////////////////////////////////
-
 //=========== Selecting Elements Methods ===========
 // console.log(document.documentElement);
 // console.log(document.head);
@@ -69,6 +68,7 @@ document
     message.parentElement.removeChild(message); //This is called DOM Traversing
   });
 
+////////////////////////////////////////////////////////////////
 //===================== Styles, Attributes and Classes =====================
 message.style.backgroundColor = '#37383d';
 message.style.width = '120%';
@@ -84,7 +84,7 @@ message.style.height =
   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
 
 // Working with Custom CSS
-document.documentElement.style.setProperty('--color-primary', 'orangered'); //Used to easily change the style of a page.
+// document.documentElement.style.setProperty('--color-primary', 'orangered'); //Used to easily change the style of a page.
 
 //====== Attributes ======
 const logo = document.querySelector('.nav__logo');
@@ -167,11 +167,12 @@ buttonScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-// Types of Events and Event Handlers 
+//////////////////////////////////////////////////////////////////
+//================== Types of Events and Event Handlers ==================
 const h1 = document.querySelector('h1');
 
 const alertH1 = function() {
-  alert('EventListener: Great! You are reading the heading');
+  // alert('EventListener: Great! You are reading the heading');
 
   // h1.removeEventListener('mouseenter', alertH1); // Listen to the event only once i.e removes the listener.
 }
