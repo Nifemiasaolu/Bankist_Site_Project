@@ -8,6 +8,10 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
 const buttonScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 ////////////////////////////////////////
 //=============== Modal window Function ===============
@@ -85,7 +89,7 @@ buttonScrollTo.addEventListener('click', function (e) {
 //   })
 // })
 
-//========== Using Event Delegation (Better Method)==========
+//========== Using Event Delegation (Modern Method)==========
 // 1. Add event listener to the parent Element
 // 2. Determine what element originated/activated the event
 
@@ -101,7 +105,82 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 //============= Tabbed Components Function =============
 
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  // console.log(clicked);
 
+  // Guard clause (Modern method)
+  // if(!clicked) return; //if it is not clicked, return the function immediately,
+  // if it's clicked, execute the next function
+
+  // Traditional Method
+  //   if(clicked) {
+  //   tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  //   clicked.classList.add('.operations__tab--active'); //This means whichever we click,
+  //  }
+
+  // Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate Tab
+  clicked.classList.add('operations__tab--active'); //This means whichever we click, we want to make it active
+
+  // Activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+//================= Menu Fade Animation =================
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//////////////////////////////////////////////////
+//================= Sticky Navigation Scroll Event =================
+  //====== Older Method ======
+// const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+
+// window.addEventListener('scroll', function() {
+  // console.log(window.scrollY);
+
+//   if(window.scrollY > initialCoords.top) nav.classList.add('sticky')
+//   else nav.classList.remove('sticky');
+// })
+
+//==== Sticky Navigaion: Intersection Observer API (Newer Method) ====
+// const section2 = document.querySelector('#section--2');
+
+const obsCallBack = function (entries, observer) {
+  entries.forEach(entry => {
+    console.log(entry);
+  })
+}
+
+const obsOptions = {
+  root: null,
+  threshold: 0.1
+}
+
+const observer = new IntersectionObserver(obsCallBack, obsOptions);
+
+observer.observe(section1)
+
+//////////////////////////////////////////////////////////////// 
 /////////////////////// LECTURES //////////////////////////////
 //=========== Selecting Elements Methods ===========
 // console.log(document.documentElement);
@@ -264,9 +343,9 @@ const alertH1 = function () {
 
 // Closest is regarded as the opposite of querySelector, bcos it finds parents
 // no matter how high they are in the heirachy, as long as they are related.
-// While querySelector finds children no matter how deep they are in the heirachy 
+// While querySelector finds children no matter how deep they are in the heirachy
 
-// Going sideways: siblings 
+// Going sideways: siblings
 // console.log(h1.previousElementSibling);
 // console.log(h1.nextElementSibling);
 
@@ -277,5 +356,3 @@ const alertH1 = function () {
 // [...h1.parentElement.children].forEach(function(el) {
 //   if(el !== h1) el.style.transform = 'scale(0.5)'
 // })
-
-
