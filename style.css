@@ -310,7 +310,7 @@ h4 {
   background-color: var(--color-tertiary-darker);
 }
 
-.operations__tab--active {
+.operations__tab--active { 
   transform: translateY(-66%);
 }
 
@@ -683,5 +683,5 @@ h4 {
   color: #bbb;
   font-size: 1.5rem;
   font-weight: 400;
-  /* width:70px */
+  /* width:70p */
 }
