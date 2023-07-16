@@ -99,6 +99,9 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+//============= Tabbed Components Function =============
+
+
 /////////////////////// LECTURES //////////////////////////////
 //=========== Selecting Elements Methods ===========
 // console.log(document.documentElement);
@@ -239,38 +242,40 @@ const alertH1 = function () {
 // });
 
 //======================= DOM Traversing =======================
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
 // Going downwards: child
-console.log(h1.querySelectorAll('.highlight'));
-console.log(h1.childNodes);
-console.log(h1.children);
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'orangered';
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'orangered';
 // const title = document.querySelector('.header__title');
 // console.log(title.children);
 // console.log(title.childNodes);
 
 // Going Upwards: parent
-console.log(h1.parentNode);
-console.log(h1.parentElement); //Mostly Used
+// console.log(h1.parentNode);
+// console.log(h1.parentElement); //Mostly Used
 
 // Finding a parent element that is not a direct parent but is related to it.
-h1.closest('.header').style.background = 'var(--gradient-primary)';
-h1.closest('h1').style.background = 'var(--gradient-secondary)';
+// h1.closest('.header').style.background = 'var(--gradient-primary)';
+// h1.closest('h1').style.background = 'var(--gradient-secondary)';
 
 // Closest is regarded as the opposite of querySelector, bcos it finds parents
 // no matter how high they are in the heirachy, as long as they are related.
 // While querySelector finds children no matter how deep they are in the heirachy 
 
 // Going sideways: siblings 
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
 
 // console.log(h1.previousSibling);
 // console.log(h1.nextSibling);
 
-console.log(h1.parentElement.children);
-[...h1.parentElement.children].forEach(function(el) {
-  if(el !== h1) el.style.transform = 'scale(0.5)'
-})
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function(el) {
+//   if(el !== h1) el.style.transform = 'scale(0.5)'
+// })
+
+
