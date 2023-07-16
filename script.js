@@ -9,7 +9,7 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const buttonScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-///////////////////////////////////////
+////////////////////////////////////////
 //=============== Modal window Function ===============
 const openModal = function (e) {
   e.preventDefault();
