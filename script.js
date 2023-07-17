@@ -8,7 +8,7 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
 const buttonScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
-const tabs = document.querySelectorAll('operations__tab');
+const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
@@ -89,7 +89,7 @@ buttonScrollTo.addEventListener('click', function (e) {
 //   })
 // })
 
-//========== Using Event Delegation (Modern Method)==========
+//========== Page Navigation Using Event Delegation (Modern Method)==========
 // 1. Add event listener to the parent Element
 // 2. Determine what element originated/activated the event
 
@@ -151,36 +151,109 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 //////////////////////////////////////////////////
 //================= Sticky Navigation Scroll Event =================
-  //====== Older Method ======
+////////////
+//====== Older Method ======
 // const initialCoords = section1.getBoundingClientRect();
 // console.log(initialCoords);
 
 // window.addEventListener('scroll', function() {
-  // console.log(window.scrollY);
+// console.log(window.scrollY);
 
 //   if(window.scrollY > initialCoords.top) nav.classList.add('sticky')
 //   else nav.classList.remove('sticky');
 // })
 
+///////////////////////////////////////////////////
 //==== Sticky Navigaion: Intersection Observer API (Newer Method) ====
 // const section2 = document.querySelector('#section--2');
 
-const obsCallBack = function (entries, observer) {
-  entries.forEach(entry => {
-    console.log(entry);
-  })
-}
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   })
+// }
 
-const obsOptions = {
+// const obsOptions = {
+//   root: null,
+//   threshold: 0.1
+// }
+// const observer = new IntersectionObserver(obsCallBack, obsOptions);
+// observer.observe(section1);
+
+//////////////////////////////////////////////////
+// Smooth Scroll Event Using Intersection Observer API 
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height; //Gets the height automatically, regardless of viewport.
+// console.log(navHeight);
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  // console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
-  threshold: 0.1
-}
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
 
-const observer = new IntersectionObserver(obsCallBack, obsOptions);
+//////////////////////////////////////////////////////////////
+//======= Reveal Section Using Intersection Observer API =======
+const allSections = document.querySelectorAll('.section');
 
-observer.observe(section1)
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
 
-//////////////////////////////////////////////////////////////// 
+  // Guard Clause
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target); //This is to unobserve all the unnecessary activities.
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
+////////////////////////////////////////////////
+//============ Lazy Loading Images Using Intersection Observer API============
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+
+  //Converts the lazy image into the clear original one
+  entry.target.src = entry.target.dataset.src; 
+  
+  // Listen for load before removing the lazy image filter 
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+  // Stop observing 
+  observer.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+imgTargets.forEach(function (img) {
+  imgObserver.observe(img);
+});
+
+////////////////////////////////////////////////////////////////
 /////////////////////// LECTURES //////////////////////////////
 //=========== Selecting Elements Methods ===========
 // console.log(document.documentElement);
