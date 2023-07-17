@@ -225,7 +225,7 @@ allSections.forEach(function (section) {
   section.classList.add('section--hidden');
 });
 
-////////////////////////////////////////////////
+///////////////////////////////////////////////
 //============ Lazy Loading Images Using Intersection Observer API============
 const imgTargets = document.querySelectorAll('img[data-src]');
 
